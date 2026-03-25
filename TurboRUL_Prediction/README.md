@@ -25,18 +25,19 @@ Predict the Remaining Useful Life (RUL) of turbofan engines — i.e., how many o
 
 | Model | RMSE | MAE | R² |
 |-------|------|-----|----|
-| Linear Regression | - | - | - |
-| Random Forest | - | - | - |
-| Gradient Boosting | - | - | - |
+| Linear Regression | 21.03 | 16.70 | 0.7246 |
+| Random Forest | 17.89 | 12.57 | 0.8007 |
+| Gradient Boosting | **17.37** | **12.14** | **0.8121** |
 
-> Note: Run the notebook to populate results. Gradient Boosting typically achieves RMSE ~15–20 cycles on FD001.
+> Gradient Boosting achieves the best performance with RMSE of 17.37 cycles on FD001 test set.
 
 ### Key Findings
-1. Several sensors have near-zero variance and are dropped as uninformative
-2. Rolling statistics (mean/std over 5 cycles) are among the most important features
-3. Piecewise linear RUL clipping at 125 cycles significantly improves model convergence
-4. FD001 is the easiest dataset (1 condition, 1 fault) — FD004 is the hardest (6 conditions, 2 faults)
-5. Gradient Boosting outperforms Random Forest and Linear Regression across all datasets
+1. 7 sensors (sensor_1, 5, 6, 10, 16, 18, 19) had near-zero variance and were dropped as uninformative
+2. 14 useful sensors retained: sensor_2, 3, 4, 7, 8, 9, 11, 12, 13, 14, 15, 17, 20, 21
+3. Rolling statistics (mean/std over 5 cycles) significantly boost prediction accuracy
+4. Piecewise linear RUL clipping at 125 cycles improves model convergence
+5. Average engine lifetime in FD001 is 206.3 cycles (range: 128–362 cycles)
+6. Gradient Boosting outperforms both Random Forest and Linear Regression
 
 ### Files
 - `Turbofan_RUL_Prediction.ipynb` — main notebook with full pipeline
